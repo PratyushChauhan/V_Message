@@ -15,6 +15,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   double opacity;
   @override
   void initState() {
+    int i = 0;
     // TODO: implement initState
     super.initState();
     controller =
@@ -24,15 +25,17 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     controller.forward();
     controller.addListener(() {
       setState(() {});
-      print(animation.value);
+      print(controller.value);
     });
-    // controller.addStatusListener((status) {
-    //   if (status == AnimationStatus.completed) {
-    //     controller.reverse(from: 1.0);
-    //   } else if (status == AnimationStatus.dismissed) {
-    //     controller.forward();
-    //   }
-    // });
+    controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        i = 0;
+        controller.reverse(from: 1.0);
+      } else if (status == AnimationStatus.dismissed) {
+        i = 0;
+        controller.forward();
+      }
+    });
   }
 
   @override
