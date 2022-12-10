@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flash_chat/screens/login_screen.dart';
 import 'package:flash_chat/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   double opacity;
   @override
   void initState() {
-    int i = 0;
     // TODO: implement initState
     super.initState();
     controller =
@@ -25,16 +25,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     controller.forward();
     controller.addListener(() {
       setState(() {});
-      print(controller.value);
-    });
-    controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        i = 0;
-        controller.reverse(from: 1.0);
-      } else if (status == AnimationStatus.dismissed) {
-        i = 0;
-        controller.forward();
-      }
     });
   }
 
@@ -83,14 +73,17 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-                  Text(
-                    'Verse',
-                    style: TextStyle(
-                      fontSize: 45.0,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.black,
-                    ),
-                  ),
+                  AnimatedTextKit(animatedTexts: [
+                    TypewriterAnimatedText(
+                      "Verse",
+                      speed: Duration(milliseconds: 500),
+                      textStyle: TextStyle(
+                        fontSize: 45.0,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.black,
+                      ),
+                    )
+                  ]),
                 ],
               ),
               SizedBox(
