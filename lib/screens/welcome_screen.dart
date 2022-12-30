@@ -93,13 +93,15 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               HeroButton(context,
                   tag: "login",
                   text: "Log In",
-                  color: Colors.lightBlueAccent,
-                  route: LoginScreen.id),
+                  color: Colors.lightBlueAccent, onPressed: () {
+                Navigator.pushNamed(context, LoginScreen.id);
+              }),
               HeroButton(context,
                   tag: "register",
                   text: "Register",
-                  color: Colors.blueAccent,
-                  route: RegistrationScreen.id),
+                  color: Colors.blueAccent, onPressed: () {
+                Navigator.pushNamed(context, RegistrationScreen.id);
+              }),
             ],
           ),
         ),

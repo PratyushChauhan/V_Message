@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Hero HeroButton(BuildContext context,
-    {String tag, Color color, String text, String route}) {
+    {String tag, Color color, String text, Function onPressed}) {
   return Hero(
     tag: tag,
     child: Padding(
@@ -13,12 +13,13 @@ Hero HeroButton(BuildContext context,
         child: MaterialButton(
           onPressed: () {
             //go to login screen
-            Navigator.pushNamed(context, route);
+            onPressed();
           },
           minWidth: 200.0,
           height: 42.0,
           child: Text(
             text,
+            style: TextStyle(color: Colors.white),
           ),
         ),
       ),
