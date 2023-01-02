@@ -1,6 +1,9 @@
 import 'package:flash_chat/components/Hero_Button.dart';
+import 'package:flash_chat/components/alerts.dart';
 import 'package:flash_chat/constants.dart';
+import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationScreen extends StatefulWidget {
   static String id = "registration_screen";
@@ -9,6 +12,10 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
+  String email;
+  String password;
+  final _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +37,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             //   height: 5,
             // ),
             TextField(
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black),
               onChanged: (value) {
-                //TODO Do something with the user input.
+                email = value;
               },
               decoration: kEmailInputDecoration,
             ),
@@ -40,8 +49,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               height: 8.0,
             ),
             TextField(
+              obscureText: true,
+              textAlign: TextAlign.center,
               onChanged: (value) {
-                //TODO Do something with the user input.
+                password = value;
               },
               decoration: kPasswordInputDecoration,
             ),
@@ -53,8 +64,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               tag: "register",
               text: "Register",
               color: Colors.blueAccent,
-              onPressed: () {
-                //TODO Implement registration functionality.
+              onPressed: () async {
+                try {
+                  final newUser = await _auth.createUserWithEmailAndPassword(
+                      email: email, password: password);
+                  if (newUser != null) {
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } catch (e) {
+                  //check if e is a firebase exception
+                  if (e is FirebaseAuthException) {
+                    //check if the error is a weak password
+                    if (e.code == 'weak-password') {
+                      //show a dialog
+                      popupError(context,
+                          "Weak Password.\nMinimum length 6 characters.");
+                    } else if (e.code == 'email-already-in-use') {
+                      popupError(
+                          context, "Email already in use.\nPlease try again.");
+                    }
+                  } else {
+                    popupError(context, "Unknown error.\nPlease try again.");
+                  }
+                }
               },
             ),
           ],

@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flash_chat/components/Hero_Button.dart';
+import 'package:flash_chat/components/alerts.dart';
+import 'package:flash_chat/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flash_chat/constants.dart';
 
@@ -9,6 +12,10 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String email;
+  String password;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +37,12 @@ class _LoginScreenState extends State<LoginScreen> {
             //   height: 48.0,
             // ),
             TextField(
+              keyboardType: TextInputType.emailAddress,
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black),
               onChanged: (value) {
                 //TODO Do something with the user input.
+                email = value;
               },
               decoration: kEmailInputDecoration,
             ),
@@ -40,9 +50,12 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 8.0,
             ),
             TextField(
+              obscureText: true,
+              textAlign: TextAlign.center,
               style: TextStyle(color: Colors.black),
               onChanged: (value) {
                 //TODO Do something with the user input.
+                password = value;
               },
               decoration: kPasswordInputDecoration,
             ),
@@ -54,8 +67,32 @@ class _LoginScreenState extends State<LoginScreen> {
               tag: "login",
               color: Colors.lightBlueAccent,
               text: "Log In",
-              onPressed: () {
-                //Implement login functionality.
+              onPressed: () async {
+                try {
+                  final user = await _auth.signInWithEmailAndPassword(
+                      email: email, password: password);
+                  if (user != null) {
+                    Navigator.pushNamed(context, ChatScreen.id);
+                  }
+                } catch (e) {
+                  //check if e is firebase auth exception
+                  if (e is FirebaseAuthException) {
+                    //check if e is user not found
+                    if (e.code == "user-not-found") {
+                      popupError(context,
+                          "User not found.\nCheck email and password.");
+                    }
+                    //check if e is wrong password
+                    else if (e.code == "wrong-password") {
+                      popupError(context, "Wrong password.\nPlease try again.");
+                    } else {
+                      //handle misc errors
+                      popupError(context, "${e.code}");
+                    }
+                  } else {
+                    popupError(context, "Unknown error.");
+                  }
+                }
               },
             ),
           ],

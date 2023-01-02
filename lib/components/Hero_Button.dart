@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Hero HeroButton(BuildContext context,
     {String tag, Color color, String text, Function onPressed}) {
   return Hero(
-    tag: tag,
+    tag: tag.toString(),
     child: Padding(
       padding: EdgeInsets.symmetric(vertical: 16.0),
       child: Material(
