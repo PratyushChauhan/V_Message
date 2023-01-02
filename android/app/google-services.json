@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "908210166080",
+    "project_id": "verse-f9cb4",
+    "storage_bucket": "verse-f9cb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:908210166080:android:4df5befc6afa42f40e82a5",
+        "android_client_info": {
+          "package_name": "com.PratyushChauhan.v_message"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "908210166080-l233438httksb4rieeqlp50mdulc0oio.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNzIqUUdrpF4oeFhivFIAyZrTJfbEnyKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "908210166080-l233438httksb4rieeqlp50mdulc0oio.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
