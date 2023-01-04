@@ -66,12 +66,12 @@ void popupLogout(BuildContext context, FirebaseAuth _auth) {
   Alert(
     style: AlertStyle(
       animationType: AnimationType.fromBottom,
-      isCloseButton: false,
+      isCloseButton: true,
       isOverlayTapDismiss: false,
       backgroundColor: Colors.white,
     ),
     context: context,
-    type: AlertType.success,
+    type: AlertType.warning,
     title: "ALERT: ",
     desc: "Are you sure you want to logout?",
     buttons: [

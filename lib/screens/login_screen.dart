@@ -30,11 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Hero(
-                tag: "logo",
-                child: Container(
-                  height: 200.0,
-                  child: Image.asset('images/logo.png'),
+              Flexible(
+                child: Hero(
+                  tag: "logo",
+                  child: Container(
+                    height: 200.0,
+                    child: Image.asset('images/logo.png'),
+                  ),
                 ),
               ),
               // SizedBox(
@@ -45,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.black),
                 onChanged: (value) {
-                  //TODO Do something with the user input.
                   email = value;
                 },
                 decoration: kEmailInputDecoration,
@@ -58,7 +59,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.black),
                 onChanged: (value) {
-                  //TODO Do something with the user input.
                   password = value;
                 },
                 decoration: kPasswordInputDecoration,
